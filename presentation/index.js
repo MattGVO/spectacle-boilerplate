@@ -1,69 +1,64 @@
-// Import React
-import React from 'react';
-
-// Import Spectacle Core tags
+import React from "react";
 import {
+  Anim,
+  Appear,
   BlockQuote,
   Cite,
+  CodePane,
+  ComponentPlayground,
   Deck,
   Heading,
   Image,
   List,
   ListItem,
-  Notes,
   Quote,
   Slide,
   Text
-} from 'spectacle';
-
-// Import theme
-import createTheme from 'spectacle/lib/themes/default';
-
+} from "spectacle";
 const images = {
-  formidagon: require('../assets/formidable-logo.svg'),
-  goodWork: require('../assets/good-work.gif')
+  formidagon: require("../assets/formidable-logo.svg"),
+  goodWork: require("../assets/good-work.gif")
 };
-
-// Require CSS
-require('normalize.css');
-
+import createTheme from "spectacle/lib/themes/default";
 const theme = createTheme(
   {
-    primary: 'white',
-    secondary: '#1F2022',
-    tertiary: '#03A9FC',
-    quaternary: '#CECECE'
+    primary: "white",
+    secondary: "#1F2022",
+    tertiary: "#03A9FC",
+    quaternary: "#CECECE"
   },
   {
-    primary: 'Montserrat',
-    secondary: 'Helvetica'
+    primary: "Montserrat",
+    secondary: "Helvetica"
   }
 );
-
 export default class Presentation extends React.Component {
   render() {
     return (
       <Deck
-        transition={['zoom', 'slide']}
-        transitionDuration={500}
+        autoplay={true}
+        autoplayDuration={3000}
+        autoplayLoop={true}
         theme={theme}
+        transition={["zoom", "slide"]}
+        transitionDuration={500}
       >
-        <Slide transition={['zoom']} bgColor="primary">
+        <Slide transition={["zoom"]} bgColor="primary">
           <Heading size={1} fit caps lineHeight={1} textColor="secondary">
             Spectacle Boilerplate
           </Heading>
-          <Text margin="10px 0 0" textColor="tertiary" fit bold>
+          <Text margin="10px 0 0" fit bold textColor="tertiary">
             open the presentation/index.js file to get started
           </Text>
         </Slide>
         <Slide bgColor="secondary">
           <Image src={images.formidagon} width={800} />
         </Slide>
-        <Slide transition={['fade']} bgColor="tertiary">
-          <Heading size={6} textColor="primary" caps>
+        <Slide transition={["fade"]} bgColor="tertiary">
+          <Heading size={6} caps textColor="primary">
             Typography
           </Heading>
-          <Heading size={1} textColor="secondary">
+          <Heading size={1} textColor="primary">
             Heading 1
           </Heading>
           <Heading size={2} textColor="secondary">
@@ -79,29 +74,78 @@ export default class Presentation extends React.Component {
             Heading 5
           </Heading>
           <Text size={6} textColor="secondary">
-            Standard text
+            Standard Text
           </Text>
         </Slide>
-        <Slide transition={['fade']} bgColor="primary" textColor="tertiary">
-          <Heading size={6} textColor="secondary" caps>
+        <Slide transition={["fade"]} bgColor="primary" textColor="tertiary">
+          <Heading size={6} caps textColor="secondary">
             Standard List
           </Heading>
           <List>
-            <ListItem>Item 1</ListItem>
-            <ListItem>Item 2</ListItem>
-            <ListItem>Item 3</ListItem>
-            <ListItem>Item 4</ListItem>
+            <Appear>
+              <ListItem>Item 1</ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>Item 2</ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>Item 3</ListItem>
+            </Appear>
+            <Appear>
+              <ListItem>Item 4</ListItem>
+            </Appear>
           </List>
         </Slide>
-        <Slide transition={['fade']} bgColor="secondary" textColor="primary">
+        <Slide transition={["fade"]} bgColor="secondary" textColor="primary">
           <BlockQuote>
             <Quote>Example Quote</Quote>
-            <Cite margin="10px 0 0 30px">Author</Cite>
+            <Cite margin="">Author</Cite>
           </BlockQuote>
         </Slide>
-        <Slide>
+        <Slide transition={["zoom", "slide"]}>
           <Image src={images.goodWork} width={500} />
-          <Notes>gifs work too</Notes>
+        </Slide>
+        <Slide>
+          <Anim
+            transitionDuration={500}
+            fromStyle={{
+              opacity: 0,
+              transform: "translate3d(0px, -100px, 0px)  scale(1) rotate(0deg)"
+            }}
+            toStyle={[
+              {
+                opacity: 1,
+                transform: "translate3d(0px, 0px, 0px)  scale(1) rotate(0deg)"
+              },
+              {
+                opacity: 1,
+                transform:
+                  "translate3d(0px, 0px, 0px) scale(1.6) rotate(-15deg)"
+              },
+              {
+                opacity: 1,
+                transform: "translate3d(0px, 0px, 0px)  scale(0.8) rotate(0deg)"
+              },
+              {
+                opacity: 1,
+                transform:
+                  "translate3d(0px, -200px, 0px)  scale(0.8) rotate(0deg)"
+              }
+            ]}
+            easing={"bounceOut"}
+            onAnim={(forwards, animIndex) => {
+              console.log("forwards ", forwards);
+              console.log("animIndex ", animIndex);
+            }}
+          >
+            <div>
+              <Heading caps size={6}>
+                Flexible
+                <br />
+                animations
+              </Heading>
+            </div>
+          </Anim>
         </Slide>
       </Deck>
     );
